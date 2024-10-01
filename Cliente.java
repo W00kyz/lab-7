@@ -1,7 +1,10 @@
 import java.util.concurrent.BlockingQueue;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Logger;
 
 public class Cliente implements Runnable {
+
+    static final Logger logger = Logger.getLogger(Cliente.class.getName());
 
     BlockingQueue<Pedido> queue;
     NomesProdutos[] nomeProdutos = NomesProdutos.values();
@@ -15,18 +18,18 @@ public class Cliente implements Runnable {
     public void run() {
         try {
             Pedido pedido = new Pedido();
-            int qtdPedidos = new Random().nextInt(10) + 1;
+            int qtdPedidos = ThreadLocalRandom.current().nextInt(10) + 1;
             for (int i = 0; i < qtdPedidos; i++) {
-                String nome = nomeProdutos[new Random().nextInt(nomeProdutos.length)].name();
-                Produto produto = new Produto(nome, new Random().nextDouble(25) + 0.50);
+                String nome = nomeProdutos[ThreadLocalRandom.current().nextInt(nomeProdutos.length)].name();
+                Produto produto = new Produto(nome,
+                        ThreadLocalRandom.current().nextInt(5) + ThreadLocalRandom.current().nextDouble());
                 pedido.adicionar(produto);
-                // System.out.println(pedido);
             }
-            queue.put(new Pedido());
+            queue.put(pedido);
+            logger.info("Criado: " + pedido + " | Estado atual da fila: " + queue);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 
 }

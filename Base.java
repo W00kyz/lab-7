@@ -1,45 +1,51 @@
+import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Base
  */
 public class Base {
-
-    BlockingQueue<Pedido> queue = new ArrayBlockingQueue<>(10);
-    ExecutorService clientes = Executors.newCachedThreadPool();
-    ExecutorService consumidores = Executors.newCachedThreadPool();
     public static final int NUM_CLIENTES = 5;
     public static final int NUM_CONSUMIDORES = 10;
+
+    BlockingQueue<Pedido> queue = new ArrayBlockingQueue<>(10);
+    ScheduledExecutorService clientes = Executors.newScheduledThreadPool(NUM_CLIENTES);
+    ScheduledExecutorService consumidores = Executors.newScheduledThreadPool(NUM_CONSUMIDORES);
 
     public Base() {
 
     }
 
     public void run() {
-        // Criar clientes (produtores)
+        // TODO FUTURO: Trocar ScheduledThreadPool de clientes para CachedThreadPool
+        // após fazer consumidores.
         for (int i = 0; i < NUM_CLIENTES; i++) {
-            clientes.submit(new Cliente(queue));
+            clientes.scheduleAtFixedRate(new Cliente(queue), 0, new Random().nextInt(5) + 1, TimeUnit.SECONDS);
         }
 
-        // Processar Pedidos (consumidores)
+        // Processar Pedidos (consumidores) | Faça semelhante aos clientes
+        for (int i = 0; i < NUM_CLIENTES; i++) {
+            clientes.scheduleAtFixedRate(new Cliente(queue), 0, new Random().nextInt(5) + 1, TimeUnit.SECONDS);
+        }
 
-        //Reestocar
-        
-        //Relatório
-        for (;;)
+        // Reestocar | Single thread para reestocar.
 
-        clientes.shutdown();
+        // TODO: Fazer relatório na thread principal.
+        for (;;) {
+        }
+
+        // clientes.shutdown();
     }
-
 
     public static void main(String[] args) {
         Base scenario = new Base();
 
         scenario.run();
     }
-
 
 }

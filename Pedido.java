@@ -3,7 +3,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Pedido {
 
-    static final AtomicInteger incrementador = new AtomicInteger(0);
+    static final AtomicInteger incrementador = new AtomicInteger(-1);
     final int id;
     LinkedList<Produto> produtos = new LinkedList<>();
 
@@ -23,10 +23,9 @@ public class Pedido {
         return total;
     }
 
-    @Override
-    public String toString() {
+    public void imprimirPedido() {
         StringBuilder sb = new StringBuilder("==========================\n");
-        sb.append("Pedido Nº "+id+":\n");
+        sb.append("Pedido Nº " + id + ":\n");
         for (Produto produto : produtos) {
             sb.append(produto.nome)
                     .append(" - R$ ")
@@ -35,8 +34,13 @@ public class Pedido {
         }
 
         sb.append("Total: R$").append(String.format("%.2f", total())).append("\n")
-        .append("==========================\n");
-        return sb.toString();
+                .append("==========================\n");
+        System.out.println(sb.toString());
+    }
+
+    @Override
+    public String toString() {
+        return "Pedido Nº" + Integer.toString(id);
     }
 
 }
