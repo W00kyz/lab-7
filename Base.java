@@ -10,7 +10,9 @@ public class Base {
 
     BlockingQueue<Pedido> queue = new ArrayBlockingQueue<>(10);
     ExecutorService clientes = Executors.newCachedThreadPool();
-    public static final int NUM_CLIENTES = 10;
+    ExecutorService consumidores = Executors.newCachedThreadPool();
+    public static final int NUM_CLIENTES = 5;
+    public static final int NUM_CONSUMIDORES = 10;
 
     public Base() {
 
@@ -19,14 +21,15 @@ public class Base {
     public void run() {
         // Criar clientes (produtores)
         for (int i = 0; i < NUM_CLIENTES; i++) {
-            clientes.submit(() -> new Cliente());
+            clientes.submit(new Cliente(queue));
         }
 
         // Processar Pedidos (consumidores)
 
         //Reestocar
-
+        
         //Relatório
+        for (;;)
 
         clientes.shutdown();
     }
