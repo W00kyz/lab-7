@@ -2,7 +2,6 @@ import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Pedido {
-
     static final AtomicInteger incrementador = new AtomicInteger(-1);
     final int id;
     LinkedList<Produto> produtos = new LinkedList<>();
@@ -23,34 +22,17 @@ public class Pedido {
         return total;
     }
 
-    public void imprimirPedido() {
-        StringBuilder sb = new StringBuilder("==========================\n");
-        sb.append("Pedido Nº " + id + ":\n");
-        for (Produto produto : produtos) {
-            sb.append(produto.nome)
-                    .append(" - R$ ")
-                    .append(String.format("%.2f", produto.valor))
-                    .append("\n");
-        }
-
-        sb.append("Total: R$").append(String.format("%.2f", total())).append("\n")
-                .append("==========================\n");
-        System.out.println(sb.toString());
-    }
-
     @Override
     public String toString() {
-        return "Pedido Nº" + Integer.toString(id);
+        return "Pedido Nº" + id;
     }
-
 }
 
 enum NomesProdutos {
-    ARROZ, FEIJAO, MACARRAO, LEITE, CAFÉ, AÇÚCAR, SAL, ÓLEO, FARINHA, MANTEIGA;
+    ARROZ, FEIJAO, MACARRAO, LEITE, CAFE, AÇUCAR, SAL, OLEO, FARINHA, MANTEIGA;
 }
 
 class Produto {
-
     String nome;
     double valor;
 
@@ -63,5 +45,4 @@ class Produto {
     public String toString() {
         return nome + " - R$ " + valor;
     }
-
 }
