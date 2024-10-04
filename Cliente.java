@@ -23,7 +23,6 @@ public class Cliente implements Runnable {
                 pedido.adicionar(produto);
             }
             queue.put(pedido);
-            logger.info("Criado: " + pedido + " | Estado atual da fila: " + queue);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

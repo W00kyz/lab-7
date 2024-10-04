@@ -42,8 +42,8 @@ public class Base {
         relatorios.scheduleAtFixedRate(() -> {
             System.out.println("Relatório de Vendas:");
             System.out.println("Pedidos Processados: " + pedidosProcessados.get());
-            System.out.println("Pedidos Rejeitados: " + pedidosRejeitados.get());
             System.out.println("Valor Total das Vendas: R$" + String.format("%.2f", getValorTotalVendas()));
+            System.out.println("Pedidos Rejeitados: " + pedidosRejeitados.get());
         }, 0, 30, TimeUnit.SECONDS);
     }
 

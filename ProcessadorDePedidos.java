@@ -35,11 +35,10 @@ public class ProcessadorDePedidos implements Runnable {
                             estoque.consultarEstoque(NomesProdutos.valueOf(produto.nome)) - 1);
                 }
                 base.incrementarPedidosProcessados(pedido.total());
-                logger.info("Pedido processado com sucesso: " + pedido);
+                System.out.println("Pedido processado com sucesso: " + pedido);
             } else {
                 pedidosPendentes.put(pedido);
                 base.incrementarPedidosRejeitados();
-                logger.warning("Pedido rejeitado (estoque insuficiente): " + pedido);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
