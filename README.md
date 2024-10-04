@@ -1,6 +1,6 @@
 # e-commerce store :convenience_store:
 
-O sistema de processamento de pedidos para uma loja de e-commerce com foco em concorrência e controle de acesso seguro a dados compartilhados. O sistema simula múltiplos clientes, que fazem pedidos simultâneos, e workers (threads), que processam esses pedidos. O desafio foi garantir que os pedidos sejam processados de forma eficiente e correta, evitando problemas de concorrência, como condições de corrida e inconsistência de dados.
+Sistema de processamento de pedidos para uma loja de e-commerce com foco em concorrência e controle de acesso seguro a dados compartilhados. O sistema simula múltiplos clientes, que fazem pedidos simultâneos, e workers (threads), que processam esses pedidos. O desafio foi garantir que os pedidos sejam processados de forma eficiente e correta, evitando problemas de concorrência, como condições de corrida e inconsistência de dados.
 
 ## Grupo
 
