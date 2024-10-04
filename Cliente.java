@@ -3,7 +3,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;
 
 public class Cliente implements Runnable {
-
     static final Logger logger = Logger.getLogger(Cliente.class.getName());
 
     BlockingQueue<Pedido> queue;
@@ -13,7 +12,6 @@ public class Cliente implements Runnable {
         this.queue = queue;
     }
 
-    // Checar se e thread-safe
     @Override
     public void run() {
         try {
@@ -21,8 +19,7 @@ public class Cliente implements Runnable {
             int qtdPedidos = ThreadLocalRandom.current().nextInt(10) + 1;
             for (int i = 0; i < qtdPedidos; i++) {
                 String nome = nomeProdutos[ThreadLocalRandom.current().nextInt(nomeProdutos.length)].name();
-                Produto produto = new Produto(nome,
-                        ThreadLocalRandom.current().nextInt(5) + ThreadLocalRandom.current().nextDouble());
+                Produto produto = new Produto(nome, ThreadLocalRandom.current().nextInt(5) + ThreadLocalRandom.current().nextDouble());
                 pedido.adicionar(produto);
             }
             queue.put(pedido);
@@ -31,5 +28,4 @@ public class Cliente implements Runnable {
             e.printStackTrace();
         }
     }
-
 }
