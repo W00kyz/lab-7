@@ -1,8 +1,13 @@
 import java.util.concurrent.*;
 
 public class Estoque {
-    // nome : quantidade (int)
     private final ConcurrentHashMap<NomesProdutos, Integer> estoque = new ConcurrentHashMap<>();
+
+    public Estoque() {
+        for (NomesProdutos produto : NomesProdutos.values()) {
+            estoque.put(produto, 100);
+        }
+    }
 
     public int consultarEstoque(NomesProdutos item) {
         return estoque.getOrDefault(item, 0);
@@ -16,10 +21,11 @@ public class Estoque {
         estoque.remove(item);
     }
 
-    public void recomporEstoque() {
+    public synchronized void recomporEstoque() {
         System.out.println("Recompondo estoque...");
         estoque.forEach((item, quantidade) -> {
-            estoque.put(item, quantidade + 10);
+            int quantidadeNova = quantidade + 50;
+            estoque.put(item, quantidadeNova);
         });
     }
 
